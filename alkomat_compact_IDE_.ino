@@ -15,9 +15,9 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // Buttons settings
-#define rightButton 8 
-#define leftButton 9
-#define okButton 10
+#define rightButton 4
+#define leftButton 2
+#define okButton 3
 
 // Potentiometer settings
 #define potentiometerPin A0
@@ -25,14 +25,15 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define power_2_End 410
 #define power_3_End 615
 #define power_4_End 820
+#define power_5_Begin 819
 
 // Alcohol pumps settings
 #define alcohol_Pump 11
 #define soda_Pump 12
 
 // Time settings
-#define button_Check_time 40
-#define button_Back_time 200
+#define button_Check_time 30
+#define button_Back_time 150
 #define alchol_Time 2500
 #define soda_Time 13000
 
@@ -357,7 +358,7 @@ void power_Select()
 
     potentiometer_Status();
 
-    if(potentiometer_Value < power_1_End){ // If the potentiometer status is in the first location, power is 1
+    if(potentiometer_Value < power_1_End){ //  power is 1
 
       // Power of alcohol in drink is 1
       power = 1;
@@ -366,7 +367,7 @@ void power_Select()
 
     }
 
-    if(potentiometer_Value > power_1_End && potentiometer_Value < power_2_End){ // If the potentiometer status is in the first location, power is 2
+    if(potentiometer_Value > power_1_End && potentiometer_Value < power_2_End){ //  power is 2
 
       // Power of alcohol in drink is 2
       power = 2;
@@ -375,7 +376,7 @@ void power_Select()
 
     }
 
-    if(potentiometer_Value > power_2_End && potentiometer_Value < power_3_End){ // If the potentiometer status is in the first location, power is 3
+    if(potentiometer_Value > power_2_End && potentiometer_Value < power_3_End){ //  power is 3
 
       // Power of alcohol in drink is 3
       power = 3;
@@ -384,7 +385,7 @@ void power_Select()
 
     }
 
-    if(potentiometer_Value > power_3_End && potentiometer_Value < power_4_End){ // If the potentiometer status is in the first location, power is 4
+    if(potentiometer_Value > power_3_End && potentiometer_Value < power_4_End){ //  power is 4
 
       // Power of alcohol in drink is 4
       power = 4;
@@ -393,7 +394,7 @@ void power_Select()
 
     }
 
-    if(potentiometer_Value > power_4_End){ // If the potentiometer status is in the first location, power is 5
+    if(potentiometer_Value > power_5_Begin){ //  power is 5
 
       // Power of alcohol in drink is 5
       power = 5;
