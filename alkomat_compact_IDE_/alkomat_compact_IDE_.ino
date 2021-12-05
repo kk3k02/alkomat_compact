@@ -18,6 +18,16 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define rightButton 4
 #define leftButton 2
 #define okButton 3
+#define steamButton 5
+
+// Light buttons settings
+#define light_rightButton 32
+#define light_leftButton 36
+#define light_okButton 34
+#define light_powerButton 38
+#define light_waterSensor 40
+#define light_steamButton_WHITE 30
+#define light_steamButton_RED 31
 
 // Potentiometer settings
 #define potentiometerPin A0
@@ -258,10 +268,19 @@ void setup()
   pinMode(rightButton, INPUT_PULLUP);
   pinMode(leftButton, INPUT_PULLUP);
   pinMode(okButton, INPUT_PULLUP);
+  pinMode(steamButton, INPUT_PULLUP);
   pinMode(potentiometerPin, INPUT);
 
   pinMode(alcohol_Pump, OUTPUT);
   pinMode(soda_Pump, OUTPUT);
+  
+  pinMode(light_rightButton, OUTPUT);
+  pinMode(light_leftButton, OUTPUT);
+  pinMode(light_okButton, OUTPUT);
+  pinMode(light_powerButton, OUTPUT);
+  pinMode(light_waterSensor, OUTPUT);
+  pinMode(light_steamButton_WHITE, OUTPUT);
+  pinMode(light_steamButton_RED, OUTPUT);
 
   Serial.println("ALKOMAT COMPACT V0.0.1");
 }
@@ -289,6 +308,14 @@ void start()
   //Press any button to start
 
   Serial.println("Press any button to start...");
+
+  digitalWrite(light_rightButton, HIGH);
+  digitalWrite(light_leftButton, HIGH);
+  digitalWrite(light_okButton, HIGH);
+  digitalWrite(light_powerButton, HIGH);
+  digitalWrite(light_waterSensor, HIGH);
+  digitalWrite(light_steamButton_WHITE, HIGH);
+  digitalWrite(light_steamButton_RED, HIGH);
 
   while (!is_Button_pressed(okButton) && !is_Button_pressed(rightButton) && !is_Button_pressed(leftButton))
   {
