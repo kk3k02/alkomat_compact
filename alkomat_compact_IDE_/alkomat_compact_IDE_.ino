@@ -21,13 +21,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
 #define steamButton 5
 
 // Light buttons settings
-#define light_rightButton 32
-#define light_leftButton 36
-#define light_okButton 34
-#define light_powerButton 38
-#define light_waterSensor 40
-#define light_steamButton_WHITE 30
-#define light_steamButton_RED 31
+#define light_rightButton 28
+#define light_leftButton 30
+#define light_okButton 32
+#define light_waterSensor 34
 
 // Potentiometer settings
 #define potentiometerPin A0
@@ -37,8 +34,8 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
 #define power_4_End 900
 
 // Alcohol pumps settings
-#define alcohol_Pump 11
-#define soda_Pump 12
+#define alcohol_Pump 50
+#define soda_Pump 48
 
 // Time settings
 #define button_Check_time 30
@@ -182,7 +179,7 @@ const unsigned char level_1_BitmapBitmap [] PROGMEM = {
   0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 
   0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 
   0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 
-  0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 
+  0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,                                                  
   0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 
   0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 
   0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 
@@ -487,10 +484,7 @@ void setup()
   pinMode(light_rightButton, OUTPUT);
   pinMode(light_leftButton, OUTPUT);
   pinMode(light_okButton, OUTPUT);
-  pinMode(light_powerButton, OUTPUT);
   pinMode(light_waterSensor, OUTPUT);
-  pinMode(light_steamButton_WHITE, OUTPUT);
-  pinMode(light_steamButton_RED, OUTPUT);
 
   Serial.println("*****ALKOMAT COMPACT V0.0.1");
   Serial.println("");
@@ -525,10 +519,7 @@ void start()
   digitalWrite(light_rightButton, HIGH);
   digitalWrite(light_leftButton, HIGH);
   digitalWrite(light_okButton, HIGH);
-  digitalWrite(light_powerButton, HIGH);
   digitalWrite(light_waterSensor, HIGH);
-  digitalWrite(light_steamButton_WHITE, HIGH);
-  digitalWrite(light_steamButton_RED, HIGH);
 
   Serial.println("[ALKOMAT IS RUNNING...]");
 }
@@ -570,7 +561,11 @@ bigDrink_mode();
 
 void shotMode(){
 
-Serial.println("[MAKING DRINK...]\n");  
+Serial.println("[MAKING DRINK...]\n");
+
+digitalWrite(light_rightButton, HIGH);
+digitalWrite(light_okButton, LOW);
+digitalWrite(light_leftButton, LOW);
 
 digitalWrite(alcohol_Pump, HIGH);
 delay(shot_Time);
@@ -580,11 +575,19 @@ Serial.println("[ALCOHOL INSERTED]");
 Serial.println("Drink is done...");
 Serial.println("\n\n");
 
+digitalWrite(light_rightButton, HIGH);
+digitalWrite(light_leftButton, HIGH);
+digitalWrite(light_okButton, HIGH);
+
 }
 
 void mediumDrink_mode(){
 
 Serial.println("[MAKING DRINK...]\n");
+
+digitalWrite(light_rightButton, LOW);
+digitalWrite(light_okButton, HIGH);
+digitalWrite(light_leftButton, LOW);
 
 digitalWrite(alcohol_Pump, HIGH);
 delay(mediumDrink_alcohol_Time);
@@ -596,6 +599,10 @@ digitalWrite(soda_Pump, HIGH);
 delay(mediumDrink_soda_Time);
 digitalWrite(soda_Pump, LOW);
 
+digitalWrite(light_rightButton, HIGH);
+digitalWrite(light_okButton, HIGH);
+digitalWrite(light_leftButton, HIGH);
+
 Serial.println("[SODA INSERTED]");
 Serial.println("Drink is done...");
 Serial.println("\n\n");
@@ -604,6 +611,10 @@ Serial.println("\n\n");
 void bigDrink_mode(){
 
 Serial.println("[MAKING DRINK...]\n");
+
+digitalWrite(light_leftButton, HIGH);
+digitalWrite(light_okButton, LOW);
+digitalWrite(light_rightButton, LOW);
 
 digitalWrite(alcohol_Pump, HIGH);
 delay(bigDrink_alcohol_Time);
@@ -614,6 +625,10 @@ Serial.println("[ALCOHOL INSERTED]");
 digitalWrite(soda_Pump, HIGH);
 delay(bigDrink_soda_Time);
 digitalWrite(soda_Pump, LOW);
+
+digitalWrite(light_rightButton, HIGH);
+digitalWrite(light_okButton, HIGH);
+digitalWrite(light_leftButton, HIGH);
 
 Serial.println("[SODA INSERTED]");
 Serial.println("Drink is done...");
@@ -751,6 +766,10 @@ void make_Drink() // Selects the right acohol power program
   Serial.println("\n[MAKING DRINK...]\n");
   // Display on the screen "Making cocktail in progress..."
 
+  digitalWrite(light_rightButton, LOW);
+digitalWrite(light_okButton, LOW);
+digitalWrite(light_leftButton, LOW);
+
   digitalWrite(alcohol_Pump, HIGH);
   delay(alcohol_Pump_time);
   digitalWrite(alcohol_Pump, LOW);
@@ -762,6 +781,10 @@ void make_Drink() // Selects the right acohol power program
   digitalWrite(soda_Pump, LOW);
 
   Serial.println("[SODA INSERTED]");
+
+  digitalWrite(light_rightButton, HIGH);
+digitalWrite(light_okButton, HIGH);
+digitalWrite(light_leftButton, HIGH);
 
   Serial.println("Drink is done...");
   Serial.println("\n\n");
