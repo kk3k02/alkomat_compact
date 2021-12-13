@@ -6,8 +6,8 @@
 // Screen settings
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
-#define OLED_MOSI   9
-#define OLED_CLK   10
+#define OLED_MOSI   9 // D1
+#define OLED_CLK   10  // D0
 #define OLED_DC    11
 #define OLED_CS    12
 #define OLED_RESET 13
